@@ -20,7 +20,7 @@ public class Main {
 
         }
         //Homework 1 Task 1
-        String onl3 = "Alla Zhmaka";
+        String onl3 = "Alla";
         System.out.println(onl3);
         // or simple code
         System.out.println("Alla");
