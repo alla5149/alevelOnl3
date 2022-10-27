@@ -21,7 +21,7 @@ public class Main2{
             }
             System.out.println();
 
-            //Task 2
+            //Homework 2 Task 2
             int A = (int) (Math.random() * 1000);
             int B = (int) (Math.random() * 1000);
             int C = (int) (Math.random() * 1000);
@@ -38,7 +38,7 @@ public class Main2{
         }
         System.out.println();
 
-        //Task 3
+        //Homework 2 Task 3
         int a = (int) (Math.random() * 100);
         System.out.println(a);
         if (a % 2 == 0) {
@@ -49,7 +49,7 @@ public class Main2{
 
         System.out.println();
 
-        // Task 4
+        // Homework 2 Task 4
         int dec_number;
         int quot;
         int s = 1;
