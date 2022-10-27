@@ -12,7 +12,7 @@ public class Main {
             }
             System.out.println("Крок " + i);
         }
-        //Task 2
+        //Homework Task 2
         int y = 5;
         for (int i = 0; i <= 10; i++) {
             System.out.println("Крок " + i + " значення " + y);
