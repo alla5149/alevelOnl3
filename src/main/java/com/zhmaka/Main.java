@@ -19,7 +19,7 @@ public class Main {
             y = y + 2;
 
         }
-        //Task 1 to HW1
+        //Homework 1 Task 1
         String onl3 = "Alla Zhmaka";
         System.out.println(onl3);
         // or simple code
