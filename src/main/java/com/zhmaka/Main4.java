@@ -1,6 +1,5 @@
 package com.zhmaka;
 
-
 public class Main4 {
     public static void main(String[] args) {
         // 1 Task
@@ -46,8 +45,15 @@ public class Main4 {
         String result = String.valueOf(StephenKing.matches(StephenEdwinKing));
         System.out.println(result);
 
+        // Task 4
+        String x = "Stephen Edwin King";
+        System.out.println("Walter Winchell".equals(x));
+        System.out.println("stephen edwin king".equalsIgnoreCase(x));
 
-
+        // Task 5
+        String str1 = "Rad is favorite color";
+        String str2 = "Orange is also my favorite color";
+        System.out.println(str2.toUpperCase().startsWith("Rad".toUpperCase()));
 
     }
 }
