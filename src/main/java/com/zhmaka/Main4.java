@@ -4,7 +4,7 @@ package com.zhmaka;
 public class Main4 {
     public static void main(String[] args) {
         // 1 Task
-        String word = "Hello World";
+        String word = "Hello World!";
         char a = word.charAt(0);
         char b = word.charAt(10);
         System.out.println(a + " " + b);
@@ -13,6 +13,7 @@ public class Main4 {
      System.out.println("First element in the line is: " + word.substring(word.length()));
      System.out.println("The last element in the line is: " + word.substring(word.length()));
        */
+
         // 2 Task
         String java = "Java Exercises";
         String java1 = "Java Exercise";
@@ -38,6 +39,15 @@ public class Main4 {
         }
         if (!foundIt)
             System.out.println("Strings aren't compared");
+
         // Task 3
+        String StephenKing = "Walter Winchel";
+        String StephenEdwinKing = "Edwin";
+        String result = String.valueOf(StephenKing.matches(StephenEdwinKing));
+        System.out.println(result);
+
+
+
+
     }
 }
