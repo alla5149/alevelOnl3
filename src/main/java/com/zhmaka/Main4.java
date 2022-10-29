@@ -21,6 +21,23 @@ public class Main4 {
         } else {
             System.out.println(false);
         }
-
+// OR the second method
+        String Java = "Java Exercises"; // false in the requirements
+        String Java1 = "Java Exercise"; // true in the requirements
+        int JavaLength = Java.length();
+        int Java1Length = Java1.length();
+        boolean foundIt = false;
+        for (int i = 0;
+             i <= (JavaLength - Java1Length);
+             i++) {
+            if (Java.regionMatches(i, Java1, 0, Java1Length)) {
+                foundIt = true;
+                System.out.println(Java.substring(i, i + Java1Length));
+                break;
+            }
+        }
+        if (!foundIt)
+            System.out.println("Strings aren't compared");
+        // Task 3
     }
 }
