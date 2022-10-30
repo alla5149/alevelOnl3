@@ -9,10 +9,10 @@ public class Main4 {
         char b = word.charAt(10);
         System.out.println(a + " " + b);
 
-     /*String word = "Hello World!";
-     System.out.println("First element in the line is: " + word.substring(word.length()));
-     System.out.println("The last element in the line is: " + word.substring(word.length()));
-       */
+     /*String word1 = "Hello World!";
+     System.out.println("First element in the line is: " + word1.substring(word.length() ));
+     System.out.println("The last element in the line is: " + word1.substring(word.length()));
+     */
 
         // 2 Task
         String java = "Java Exercises";
@@ -55,5 +55,6 @@ public class Main4 {
         String str1 = "Rad is favorite color";
         String str2 = "Orange is also my favorite color";
         System.out.println(StringUtils.startsWithIgnoreCase(str2,"Rad"));
+        
     }
 }
