@@ -1,4 +1,5 @@
 package com.zhmaka;
+import org.apache.commons.lang3.StringUtils;
 
 public class Main4 {
     public static void main(String[] args) {
@@ -53,6 +54,6 @@ public class Main4 {
         // Task 5
         String str1 = "Rad is favorite color";
         String str2 = "Orange is also my favorite color";
-        System.out.println(str2.toUpperCase().startsWith("Rad".toUpperCase()));
+        System.out.println(StringUtils.startsWithIgnoreCase(str2,"Rad"));
     }
 }
