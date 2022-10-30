@@ -54,6 +54,5 @@ public class Main4 {
         String str1 = "Rad is favorite color";
         String str2 = "Orange is also my favorite color";
         System.out.println(str2.toUpperCase().startsWith("Rad".toUpperCase()));
-
     }
 }
