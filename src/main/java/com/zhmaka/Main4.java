@@ -1,14 +1,21 @@
 package com.zhmaka;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Scanner;
+
 public class Main4 {
     public static void main(String[] args) {
         // 1 Task
-        String word = "Hello World!";
-        char a = word.charAt(0);
-        char b = word.charAt(10);
-        System.out.println("First letter is" + a + " and the second letter is " + b);
+        Scanner scn = new Scanner(System.in);
+        System.out.println("Write the first name of Java program");
+        String str3 = scn.nextLine();
+        System.out.println("First letter of sentence: " + str3.charAt(0));
+        System.out.println("Last element of sentence: " + str3.charAt(str3.length()-1));
 
+        // or short method
+        String firstProgram = "Hello world!";
+        System.out.println("First element of sentence: " + firstProgram.charAt(0));
+        System.out.println("Last element of sentence: " + firstProgram.charAt(firstProgram.length()-1));
 
         // 2 Task
         String java = "Java Exercises";
@@ -18,8 +25,7 @@ public class Main4 {
         } else {
             System.out.println(false);
         }
-
-// OR the second method
+        // The second method
         String Java = "Java Exercises"; // false in the requirements
         String Java1 = "Java Exercise"; // true in the requirements
         int JavaLength = Java.length();
@@ -37,12 +43,6 @@ public class Main4 {
         if (!foundIt)
             System.out.println("Strings aren't compared");
 
-        // I found very interesting method Knuth-Morris-Pratt String Search
-
-
-
-
-
         // Task 3
         String StephenKing = "Walter Winchel";
         String StephenEdwinKing = "Edwin";
@@ -55,6 +55,7 @@ public class Main4 {
         System.out.println("stephen edwin king".equalsIgnoreCase(x));
 
         // Task 5
+        // тут імпортувала клас і додала залежність в пум файл, бо без цього Utils не працює
         String str1 = "Rad is favorite color";
         String str2 = "Orange is also my favorite color";
         System.out.println(StringUtils.startsWithIgnoreCase(str2,"Rad"));
