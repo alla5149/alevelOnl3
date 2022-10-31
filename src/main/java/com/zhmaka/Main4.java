@@ -7,12 +7,8 @@ public class Main4 {
         String word = "Hello World!";
         char a = word.charAt(0);
         char b = word.charAt(10);
-        System.out.println(a + " " + b);
+        System.out.println("First letter is" + a + " and the second letter is " + b);
 
-     /*String word1 = "Hello World!";
-     System.out.println("First element in the line is: " + word1.substring(word.length() ));
-     System.out.println("The last element in the line is: " + word1.substring(word.length()));
-     */
 
         // 2 Task
         String java = "Java Exercises";
@@ -22,6 +18,7 @@ public class Main4 {
         } else {
             System.out.println(false);
         }
+
 // OR the second method
         String Java = "Java Exercises"; // false in the requirements
         String Java1 = "Java Exercise"; // true in the requirements
@@ -39,6 +36,12 @@ public class Main4 {
         }
         if (!foundIt)
             System.out.println("Strings aren't compared");
+
+        // I found very interesting method Knuth-Morris-Pratt String Search
+
+
+
+
 
         // Task 3
         String StephenKing = "Walter Winchel";
