@@ -26,17 +26,17 @@ public class Main4 {
             System.out.println(false);
         }
         // The second method
-        String Java = "Java Exercises"; // false in the requirements
-        String Java1 = "Java Exercise"; // true in the requirements
-        int JavaLength = Java.length();
-        int Java1Length = Java1.length();
+        String java2 = "Java Exercises"; // false in the requirements
+        String java3 = "Java Exercise"; // true in the requirements
+        int java2length = java2.length();
+        int java3length = java3.length();
         boolean foundIt = false;
         for (int i = 0;
-             i <= (JavaLength - Java1Length);
+             i <= (java2length - java3length);
              i++) {
-            if (Java.regionMatches(i, Java1, 0, Java1Length)) {
+            if (java2.regionMatches(i, java3, 0, java3length)) {
                 foundIt = true;
-                System.out.println(Java.substring(i, i + Java1Length));
+                System.out.println(java2.substring(i, i + java3length));
                 break;
             }
         }
