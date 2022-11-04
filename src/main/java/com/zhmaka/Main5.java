@@ -10,8 +10,7 @@ public class Main5 {
         twoArrays();
 
     }
-
-    //Task 1
+    
     public static void randomArray() {
         int[] array1 = new int[12];
         for (int i = 0; i < array1.length; i++) {
@@ -31,7 +30,6 @@ public class Main5 {
         System.out.println("This is the start of task 2");
     }
 
-    //Task
     public static void oddNumber() {
         int[] array2 = new int[8];
         for (int i = 0; i < array2.length; i++) {
