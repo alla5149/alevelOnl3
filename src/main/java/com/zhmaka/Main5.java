@@ -1,6 +1,7 @@
 package com.zhmaka;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main5 {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Main5 {
         twoArrays();
 
     }
-    
+
     public static void randomArray() {
         int[] array1 = new int[12];
         for (int i = 0; i < array1.length; i++) {
@@ -99,6 +100,7 @@ public class Main5 {
         }
     }
 }
+
 
 
 
