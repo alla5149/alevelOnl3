@@ -1,23 +1,19 @@
 package com.zhmaka.model;
 
 public class Car {
-   private String manufacturer;
-   private String engine;
-   private String color;
-   private int count;
-   private int price;
+    private String manufacturer;
+    private String engine;
+    private String color;
+    private int count;
+    private int price;
 
-   public Car car = new Car();
-   public Car(){
-       this.manufacturer = manufacturer;
-       this.engine = engine;
-       this.color = color;
-       this.count = 1;
-       this.price = (int) (Math.random() * 100);
-
-   }
-
-
+    public Car(String s, String randomString, String string) {
+        this.manufacturer = manufacturer;
+        this.engine = engine;
+        this.color = color;
+        this.count = 1;
+        this.price = (int) (Math.random() * 100);
+    }
 
     public String getManufacturer() {
         return manufacturer;
