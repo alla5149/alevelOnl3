@@ -23,7 +23,7 @@ public class CarService {
         return null;
     }
 
-    public static void print(Car... cars) {
+    public void print(Car... cars) {
         for (Car car : cars) {
             System.out.printf("Manufacturer: %s, Engine: %s, Color: %s, Count: %d, Price: %d%n",
                     car.getManufacturer(), car.getEngine(), car.getColor(), car.getCount(), car.getPrice());
