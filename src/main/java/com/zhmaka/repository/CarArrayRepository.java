@@ -15,6 +15,17 @@ public class CarArrayRepository {
         }
     }
 
+    private int putCar(Car car) {
+        int index = 0;
+        for (; index < cars.length; index++) {
+            if (cars[index] == null) {
+                cars[index] = car;
+                break;
+            }
+        }
+        return index;
+    }
+
     public Car[] getAll() {
         final int newLength = foundLength();
         final Car[] newCars = new Car[newLength];
@@ -49,18 +60,6 @@ public class CarArrayRepository {
         if (car != null) {
             car.setColor(color);
         }
-    }
-
-
-    private int putCar(Car car) {
-        int index = 0;
-        for (; index < cars.length; index++) {
-            if (cars[index] == null) {
-                cars[index] = car;
-                break;
-            }
-        }
-        return index;
     }
 
     private void increaseArray() {

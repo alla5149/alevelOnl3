@@ -16,6 +16,17 @@ public class CarService {
     public CarService(final CarArrayRepository carArrayRepository) {
         this.carArrayRepository = carArrayRepository;
     }
+    public String getRandomString() {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        int length = random.nextInt(10);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
+    }
 
     public Car create() {
         Engine engine = new Engine(getRandomString());
@@ -44,14 +55,14 @@ public class CarService {
     }
 
     public void check(Car car) {
-        if (car.getCount() >= 1 && (car.getEnginePower() > 200)) {
-            System.out.println("The car is completely ready for sale");
+        if (car.getCount() > 1 && (car.getEnginePower() > 200)) {
+            System.out.println("Авто готове до продажу");
         } else if (car.getCount() < 1 && (car.getEnginePower() > 200)) {
-            System.out.println("The count of the car = 0");
+            System.out.println("Нет нужного количества автомобилей");
         } else if (car.getCount() >= 1 && (car.getEnginePower() <= 200)) {
-            System.out.println("The engine power of the car is less than 200");
+            System.out.println("Мощность двигателя меньше или равно 200");
         } else {
-            System.out.println("The count of the car = 0 and the engine power of the car is less than 200");
+            System.out.println("Нет нужного количества автомобилей с нужным объемом двигателя");
         }
     }
 
@@ -92,27 +103,15 @@ public class CarService {
         if (car == null) {
             return;
         }
-        findAndChangeRandomColor(car);
+        findChangeRandomColor(car);
     }
 
-    private void findAndChangeRandomColor(final Car car) {
+    private void findChangeRandomColor(final Car car) {
         final Color color = car.getColor();
         Color randomColor;
         do {
             randomColor = getRandomColor();
         } while (randomColor == color);
         carArrayRepository.updateColor(car.getId(), randomColor);
-    }
-
-    public String getRandomString() {
-        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random = new Random();
-        int length = random.nextInt(10);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(62);
-            sb.append(str.charAt(number));
-        }
-        return sb.toString();
     }
 }

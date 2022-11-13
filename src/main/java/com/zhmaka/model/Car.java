@@ -57,7 +57,7 @@ public class Car {
         return id;
     }
 
-    public void setEngineType(final Engine engine) {
+    public void setEngineType(Engine engine) {
         this.engineType = engine.getType();
     }
 
@@ -65,7 +65,7 @@ public class Car {
         return engineType;
     }
 
-    public void setEnginePower(final Engine engine) {
+    public void setEnginePower(Engine engine) {
         engine.getPower();
     }
 
