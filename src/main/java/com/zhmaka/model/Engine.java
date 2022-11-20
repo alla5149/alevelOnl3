@@ -6,15 +6,18 @@ public class Engine {
     private int power;
     private String type;
 
+    public Engine(){
+    }
+
     public Engine(String type) {
         this.power = new Random().nextInt(1000);
         this.type = type;
     }
-    public void setPower(int power){
-        this.power = power;
+    public int setPower(int power){
+        return power;
     }
-    public void getPower(){
-        this.power = power;
+    public int getPower(){
+        return power;
     }
     public void setType(final String type) {
         this.type = type;
