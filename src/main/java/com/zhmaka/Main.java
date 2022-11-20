@@ -1,28 +1,15 @@
 package com.zhmaka;
 
-public class Main {
-    // Homework 1 Task 3
-    public static void main(String[] args) {
-        for (int i = 0; i <= 10; i++) {
-            if (i == 3) {
-                continue;
-            }
-            if (i == 6) {
-                break;
-            }
-            System.out.println("Крок " + i);
-        }
-        //Homework Task 2
-        int y = 5;
-        for (int i = 0; i <= 10; i++) {
-            System.out.println("Крок " + i + " значення " + y);
-            y = y + 2;
+import com.zhmaka.model.Car;
+import com.zhmaka.service.CarService;
 
-        }
-        //Homework 1 Task 1
-        String onl3 = "Alla";
-        System.out.println(onl3);
-        // or simple code
-        System.out.println("Alla");
+public class Main {
+
+    public static void main(String[] args) {
+        Car car1 = CarService.create();
+        Car car2 = CarService.create();
+        Car car3 = CarService.create();
+        CarService.print(car1, car2, car3);
+
     }
 }
