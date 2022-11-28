@@ -1,8 +1,14 @@
 package com.zhmaka.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Random;
 
+@Setter
+@Getter
 public class Engine {
+    final private Random random = new Random();
     private int power;
     private String type;
 
@@ -12,19 +18,6 @@ public class Engine {
     public Engine(String type) {
         this.power = new Random().nextInt(1000);
         this.type = type;
-    }
-    public int setPower(int power){
-        return power;
-    }
-    public int getPower(){
-        return power;
-    }
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 
 }

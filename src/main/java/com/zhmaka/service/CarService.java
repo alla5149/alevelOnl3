@@ -4,13 +4,13 @@ import com.zhmaka.model.Car;
 import com.zhmaka.model.Color;
 import com.zhmaka.model.Engine;
 import com.zhmaka.repository.CarArrayRepository;
+import com.zhmaka.util.RandomGenerator;
 
 import java.util.Arrays;
 import java.util.Random;
 
 public class CarService {
     private final CarArrayRepository carArrayRepository;
-
     private final Random random = new Random();
 
     public CarService(final CarArrayRepository carArrayRepository) {
@@ -18,7 +18,6 @@ public class CarService {
     }
     public String getRandomString() {
         String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random = new Random();
         int length = random.nextInt(10);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -35,11 +34,23 @@ public class CarService {
         return car;
     }
 
-    public void create(final int count) {
+    public Car[] create(int count) {
         for (int i = 0; i < count; i++) {
             create();
         }
+        return new Car[0];
     }
+
+    public int create(RandomGenerator randomGenerator){
+        int count = randomGenerator.genRandom();
+            if (count <= 0 || count > 10) {
+                return -1;
+            }
+                final Car[] cars = create(count);
+                printAll(cars);
+                System.out.println("Число созданных машин равно: " + count);
+                return count;
+            }
 
     public void insert(int index, final Car car) {
         if (index < 0 || car == null) {
@@ -54,7 +65,7 @@ public class CarService {
         System.out.println(carInfo);
     }
 
-    public void check(Car car) {
+   public void check(Car car) {
         if (car.getCount() > 1 && (car.getEngine().getPower() > 200)) {
             System.out.println("Авто готове до продажу");
         } else if (car.getCount() < 1 && (car.getEngine().getPower() > 200)) {
@@ -72,7 +83,7 @@ public class CarService {
         return values[randomIndex];
     }
 
-    public void printAll() {
+    public void printAll(Car[] cars) {
         final Car[] all = carArrayRepository.getAll();
         System.out.println(Arrays.toString(all));
     }
