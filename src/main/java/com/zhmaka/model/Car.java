@@ -13,6 +13,8 @@ public abstract class Car implements CountRestore {
     private String manufacturer;
     private Engine engine;
     private Color color;
+
+    private Type type;
     private int count;
     private int price;
 

@@ -20,7 +20,12 @@ public class PassengerCar extends Car implements CountRestore{
     @Override
     public int restore(){
         return passengerCaunt = 100;
-        
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s, Manufacturer: %s, Engine: %s, Color: %s, passengerCaunt: %s, Type: %s, %s%n",
+                getId(), getManufacturer(),getEngine(), getColor(),getPassengerCaunt(), getType());
     }
 
 
