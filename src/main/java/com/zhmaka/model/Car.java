@@ -23,6 +23,7 @@ public abstract class Car implements CountRestore {
         this.manufacturer = manufacturer;
         this.engine = engine;
         this.color = color;
+        this.type = type;
         price = new Random().nextInt(10000);
 
     }

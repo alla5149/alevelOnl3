@@ -29,6 +29,4 @@ public class PassengerCar extends Car implements CountRestore{
     }
 
 
-
-
 }

@@ -5,6 +5,9 @@ import com.zhmaka.model.Color;
 
 public class CarArrayRepository {
     private static Car[] cars = new Car[10];
+    
+
+
 
     public void save(Car car) {
         final int index = putCar(car);
