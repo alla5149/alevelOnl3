@@ -19,9 +19,8 @@ class CarServiceTest {
         repository = Mockito.mock(CarArrayRepository.class);
         randomGenerator = Mockito.mock(RandomGenerator.class);
         target = new CarService(repository);
-        car = new Car(car.getManufacturer(),
-                car.getEngine(),
-                car.getColor());
+        car = new Car(
+                manufacturer, engine, color);
     }
 
     @Test
@@ -60,7 +59,7 @@ class CarServiceTest {
     void printAll() {
         final Car[] cars = new Car[0];
         Mockito.when(repository.getAll()).thenReturn(cars);
-        Assertions.assertDoesNotThrow(() -> target.printAll(cars));
+        Assertions.assertDoesNotThrow(() -> target.printAll());
     }
 
     @Test

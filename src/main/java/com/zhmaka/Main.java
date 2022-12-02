@@ -9,6 +9,10 @@ public class Main {
     public static void main(String[] args) {
         CarService carService = new CarService(new CarArrayRepository());
         RandomGenerator randomGenerator = new RandomGenerator();
-        carService.create(randomGenerator);
+        carService.createPassengerCar();
+        carService.createTruck();
+        carService.print(carService.createTruck());
+        carService.print(carService.createPassengerCar());
+
     }
 }

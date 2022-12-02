@@ -8,25 +8,29 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public abstract class Car implements CountRestore {
+public abstract class Car implements CountRestore{
     private final String id;
     private String manufacturer;
     private Engine engine;
     private Color color;
-
     private Type type;
     private int count;
     private int price;
 
     public Car(String manufacturer, Engine engine, Color color) {
-        id = UUID.randomUUID().toString();
-        this.manufacturer = manufacturer;
-        this.engine = engine;
-        this.color = color;
+        this.manufacturer = this.manufacturer;
+        this.engine = this.engine;
+        this.color = this.color;
         this.type = type;
+        this.count = 1;
+        id = UUID.randomUUID().toString();
         price = new Random().nextInt(10000);
-
     }
+
+    public Car(){
+        this.id = UUID.randomUUID().toString();
+    }
+
     @Override
     public String toString() {
         return String.format("ID: %s, Manufacturer: %s, Engine: %s, Color: %s, Count; %s, Price; %s%n",
