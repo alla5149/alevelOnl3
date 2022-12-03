@@ -13,6 +13,5 @@ public class Main {
         carService.createTruck();
         carService.print(carService.createTruck());
         carService.print(carService.createPassengerCar());
-
     }
 }

@@ -29,6 +29,7 @@ public abstract class Car implements CountRestore{
 
     public Car(){
         this.id = UUID.randomUUID().toString();
+        this.count = 1;
     }
 
     @Override

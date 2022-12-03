@@ -57,7 +57,8 @@ public class CarService {
         return sb.toString();
     }
 
-    /*public Car create() {
+    /*
+    public Car create() {
         Car car = new Car();
         Engine engine = new Engine();
         car.setManufacturer(getRandomString());
@@ -69,14 +70,12 @@ public class CarService {
         return car;
     }
 
-
     public Car[] create(int count) {
         for (int i = 0; i < count; i++) {
             create();
         }
         return new Car[0];
     }
-
      */
 
     public int createPassengerCar(RandomGenerator randomGenerator) {
