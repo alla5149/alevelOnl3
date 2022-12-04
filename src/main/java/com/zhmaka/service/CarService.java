@@ -29,7 +29,7 @@ public class CarService {
 
     public Car create() {
         Engine engine = new Engine(getRandomString());
-        Car car = new Car(getRandomString(), engine, getRandomColor());
+        Car car = new Car();
         carArrayRepository.save(car);
         return car;
     }
