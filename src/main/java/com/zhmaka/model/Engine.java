@@ -20,4 +20,10 @@ public class Engine {
         this.type = type;
     }
 
+    private Type getRandomType() {
+        Type[] types = Type.values();
+        int index = random.nextInt(types.length);
+        return types[index];
+    }
+
 }

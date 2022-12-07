@@ -9,19 +9,22 @@ import lombok.Setter;
 public class Truck extends Car implements CountRestore {
     private int loadCapacity;
 
-    public Truck() {
-        super();
+    public Truck(String manufacturer, Color color, Engine engine) {
+        super(Type.TRUCK);
     }
 
-    public Truck(String id, String manufacturer, Engine engine, Color color, int loadCapacity){
-        super(manufacturer, engine, color);
+    public Truck(final Color color) {
+        super(color, Type.TRUCK);
+    }
+
+    public Truck(Color color, int loadCapacity) {
+        super(color, Type.TRUCK);
         this.loadCapacity = loadCapacity;
     }
 
     @Override
     public String toString() {
-        return String.format("Type: %s, ID: %s, Manufacturer: %s, Engine: %s, Color: %s, LoadCapacity: %s, %s%n",
-                getType(), getId(), getManufacturer(), getEngine(), getColor(), getLoadCapacity());
+        return super.toString() + " " + loadCapacity;
     }
 
     @Override
@@ -29,5 +32,3 @@ public class Truck extends Car implements CountRestore {
         return this.loadCapacity = 50;
     }
 }
-
-

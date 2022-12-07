@@ -5,12 +5,15 @@ import com.zhmaka.model.Color;
 
 public class CarArrayRepository {
     private static Car[] cars = new Car[10];
-    public void save(Car car) {
-        final int index = putCar(car);
-        if (index == cars.length) {
-            int oldlength = cars.length;
+    public void save(final Car car) {
+        if (car == null) {
+            return;
+        }
+        int index = putCar(car);
+        if (index == cars.length){
+            int oldLength = cars.length;
             increaseArray();
-            cars[oldlength] = car;
+            cars[oldLength] = car;
         }
     }
 
