@@ -55,8 +55,6 @@ class CarServiceTest {
         Assertions.assertEquals(expected, actual);
     }
 
-
-
     @Test
     void createNegativeNumCars(){
         randomGenerator = Mockito.mock(RandomGenerator.class);
@@ -109,8 +107,8 @@ class CarServiceTest {
     @Test
     void carEqualsCar(){
         final boolean expected = true;
-        boolean actualValue = target.carEquals(car, car);
-        Assertions.assertEquals(actualValue, expected);
+        boolean actual = target.carEquals(car, car);
+        Assertions.assertEquals(actual, expected);
     }
 
     @Test
