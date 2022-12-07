@@ -28,6 +28,7 @@ public abstract class Car implements CountRestore{
     }
 
     public Car(Color color, Type type){
+        this.manufacturer = getManufacturer();
         this.color = color;
         this.id = UUID.randomUUID().toString();
         this.count = 1;

@@ -15,8 +15,8 @@ public class CarService {
         this.carArrayRepository = carArrayRepository;
     }
 
-    public PassengerCar createPassengerCar() {
-        final PassengerCar passengerCar = new PassengerCar();
+   /* public PassengerCar createPassengerCar() {
+        final PassengerCar passengerCar = new PassengerCar(manufacturer, color, engine);
         Engine engine = new Engine();
         passengerCar.setManufacturer(getRandomString());
         passengerCar.setEngine(engine);
@@ -31,7 +31,7 @@ public class CarService {
     }
 
     public Truck createTruck() {
-        final Truck truck = new Truck();
+        final Truck truck = new Truck(manufacturer, color, engine);
         Engine engine = new Engine();
         truck.setManufacturer(getRandomString());
         truck.setEngine(engine);
@@ -45,63 +45,89 @@ public class CarService {
         return truck;
     }
 
+    */
 
-    public String getRandomString() {
-        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int length = random.nextInt(10);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(62);
-            sb.append(str.charAt(number));
+    public boolean carEquals(Car car1, Car car2) {
+        if (car1 == null || car2 == null) {
+            return false;
         }
-        return sb.toString();
+        if (car1.getType() != car2.getType()) {
+            return false;
+        }
+        if (car1.hashCode() != car2.hashCode()) {
+            return false;
+        }
+        return car1.equals(car2);
     }
 
-    /*
     public Car create() {
-        Car car = new Car();
-        Engine engine = new Engine();
-        car.setManufacturer(getRandomString());
-        car.setEngine(engine);
-        car.setColor(getRandomColor());
-        car.setPrice(random.nextInt(1000));
-        car.setCount(random.nextInt(2));
+        final Color color = getRandomColor();
+        final Car car = new PassengerCar(getRandomString(), getRandomColor(), new Engine(getRandomString()));
         carArrayRepository.save(car);
         return car;
     }
 
-    public Car[] create(int count) {
+    public int create(final int count) {
+        if (count <= 0) {
+            return -1;
+        }
         for (int i = 0; i < count; i++) {
             create();
         }
-        return new Car[0];
+        return count;
     }
-     */
 
-    public int createPassengerCar(RandomGenerator randomGenerator) {
-        int count = randomGenerator.genRandom();
-        if (count != 0) {
-            for (int i = 0; i < count; i++) {
-                PassengerCar passengerCar = createPassengerCar();
-                print(passengerCar);
-            }
-            return count;
+    public int create(final RandomGenerator randomGenerator) {
+        if (randomGenerator == null) {
+            return -1;
         }
-        return -1;
-    }
-
-    public int createTruck(RandomGenerator randomGenerator) {
         int count = randomGenerator.genRandom();
-        if (count != 0) {
-            for (int i = 0; i < count; i++) {
-                Truck truck = createTruck();
-                print(truck);
-            }
-            return count;
+        if (count <= 0) {
+            return -1;
         }
-        return -1;
+        create(count);
+        printAll();
+        return count;
     }
 
+    public Car createCar(Type type) {
+        final Color color = getRandomColor();
+        final Car car;
+        if (type.equals(Type.CAR)) {
+            car = new PassengerCar(color);
+        } else if (type.equals(Type.TRUCK)) {
+            car = new Truck(color);
+        } else {
+            car = null;
+        }
+        return car;
+    }
+
+
+       /* public int createPassengerCar (RandomGenerator randomGenerator){
+            int count = randomGenerator.genRandom();
+            if (count != 0) {
+                for (int i = 0; i < count; i++) {
+                    PassengerCar passengerCar = createPassengerCar();
+                    print(passengerCar);
+                }
+                return count;
+            }
+            return -1;
+        }
+
+        public int createTruck (RandomGenerator randomGenerator){
+            int count = randomGenerator.genRandom();
+            if (count != 0) {
+                for (int i = 0; i < count; i++) {
+                    Truck truck = createTruck();
+                    print(truck);
+                }
+                return count;
+            }
+            return -1;
+        }
+*/
 
     public void insert(int index, final Car car) {
         if (index < 0 || car == null) {
@@ -180,4 +206,16 @@ public class CarService {
                 "; Count: " + car.getCount() +
                 "; Price: " + car.getPrice());
     }
+
+    public String getRandomString() {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        int length = random.nextInt(10);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
+    }
+
 }

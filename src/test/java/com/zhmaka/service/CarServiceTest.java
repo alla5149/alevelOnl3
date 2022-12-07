@@ -21,7 +21,7 @@ class CarServiceTest {
         repository = Mockito.mock(CarArrayRepository.class);
         randomGenerator = Mockito.mock(RandomGenerator.class);
         target = new CarService(repository);
-        car = new PassengerCar();
+        car = new PassengerCar(manufacturer, color, engine);
     }
 
     @Test
@@ -71,21 +71,21 @@ class CarServiceTest {
 
     @Test
     void checkIndexZero(){
-        final Car car = new Truck();
+        final Car car = new Truck(manufacturer, color, engine);
         target.insert(0, car);
         Mockito.verify(repository).insert(0, car);
     }
 
     @Test
     void checkIndexMoreThan0(){
-        final Car car = new Truck();
+        final Car car = new Truck(manufacturer, color, engine);
         target.insert(7, car);
         Mockito.verify(repository).insert(0, car);
         }
 
     @Test
     void print() {
-        final Car car = new PassengerCar();
+        final Car car = new PassengerCar(manufacturer, color, engine);
         Assertions.assertDoesNotThrow(() -> target.print(car));
     }
 
@@ -97,7 +97,7 @@ class CarServiceTest {
     @Test
     void find() {
         final String id = "5149";
-        final Car expected = new PassengerCar();
+        final Car expected = new PassengerCar(manufacturer, color, engine);
         Mockito.when(repository.getById("5149")).thenReturn(expected);
         final Car actual = target.find(id);
         Assertions.assertEquals(expected, actual);
