@@ -14,6 +14,9 @@ public class Main {
         RandomGenerator randomGenerator = new RandomGenerator();
         final PassengerCar passengerCar = (PassengerCar) carService.createCar(Type.CAR);
         final Truck truck = (Truck) carService.createCar(Type.TRUCK);
+        carService.print(passengerCar);
+        carService.print(truck);
+        System.out.println();
         System.out.println(passengerCar);
         System.out.println(truck);
 

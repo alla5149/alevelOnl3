@@ -60,7 +60,7 @@ public class CarService {
         return car1.equals(car2);
     }
 
-    public Car create() {
+    public Car create(Type type) {
         final Color color = getRandomColor();
         final Car car = new PassengerCar(getRandomString(), getRandomColor(), new Engine(getRandomString()));
         carArrayRepository.save(car);
@@ -72,7 +72,7 @@ public class CarService {
             return -1;
         }
         for (int i = 0; i < count; i++) {
-            create();
+            create(Type.CAR);
         }
         return count;
     }

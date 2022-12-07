@@ -1,8 +1,6 @@
 package com.zhmaka.service;
 
-import com.zhmaka.model.Car;
-import com.zhmaka.model.PassengerCar;
-import com.zhmaka.model.Truck;
+import com.zhmaka.model.*;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -14,37 +12,37 @@ class CarServiceTest {
     private CarService target;
     private CarArrayRepository repository;
     private RandomGenerator randomGenerator;
-    private PassengerCar car;
+    private Car car;
 
     @BeforeEach
     void setUp() {
         repository = Mockito.mock(CarArrayRepository.class);
         randomGenerator = Mockito.mock(RandomGenerator.class);
         target = new CarService(repository);
-        car = new PassengerCar(manufacturer, color, engine);
     }
 
     @Test
-    int create_createPassengerCar() {
-        final Car passengerCar = target.createPassengerCar();
-        if (passengerCar != null) {
-            Assertions.assertNotNull(passengerCar);
-        }
-        return create_createPassengerCar();
+    void create_createPassCar() {
+        final Car car = target.create(Type.CAR);
+        Assertions.assertNotNull(car);
+        Assertions.assertNotEquals(0, car.getPrice());
     }
+
 
     @Test
     void create_createTruck() {
-        final Car truck = target.createTruck();
-        Assertions.assertNotNull(truck);
+        final Car car = target.create(Type.TRUCK);
+        Assertions.assertNotNull(car);
+        Assertions.assertNotEquals(0, car.getPrice());
     }
 
-    @Test
-    void createPassCarRandom(){
+
+   @Test
+    void createCarRandom(){
         randomGenerator = Mockito.mock(RandomGenerator.class);
         Mockito.when(randomGenerator.genRandom()).thenReturn(2);
+        final int actual = target.create(randomGenerator);
         final int expected = 2;
-        final int actual = target.createPassengerCar(randomGenerator);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -53,39 +51,38 @@ class CarServiceTest {
         randomGenerator = Mockito.mock(RandomGenerator.class);
         Mockito.when(randomGenerator.genRandom()).thenReturn(1);
         final int expected = 1;
-        final int actual = target.createTruck(randomGenerator);
+        final int actual = target.create(randomGenerator);
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+
+    @Test
+    void createNegativeNumCars(){
+        randomGenerator = Mockito.mock(RandomGenerator.class);
+        Mockito.when(randomGenerator.genRandom()).thenReturn(-5);
+        final int expected = -1;
+        final int actual = target.createCar(randomGenerator);
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    final int createZeroPassCars(){
-        randomGenerator = Mockito.mock(RandomGenerator.class);
-        Mockito.when(randomGenerator.genRandom()).thenReturn(0);
-        final int expected = 0;
-        final int actual = target.createPassengerCar(randomGenerator);
-        if (actual != expected){
-            return actual;
-        }
-        return expected;
-    }
-
-    @Test
     void checkIndexZero(){
-        final Car car = new Truck(manufacturer, color, engine);
+        final Car car = new PassengerCar();
         target.insert(0, car);
         Mockito.verify(repository).insert(0, car);
     }
 
     @Test
     void checkIndexMoreThan0(){
-        final Car car = new Truck(manufacturer, color, engine);
+        final Car car = new PassengerCar();
         target.insert(7, car);
         Mockito.verify(repository).insert(0, car);
         }
 
     @Test
     void print() {
-        final Car car = new PassengerCar(manufacturer, color, engine);
+        final Car car = new PassengerCar();
         Assertions.assertDoesNotThrow(() -> target.print(car));
     }
 
@@ -96,17 +93,33 @@ class CarServiceTest {
 
     @Test
     void find() {
-        final String id = "5149";
-        final Car expected = new PassengerCar(manufacturer, color, engine);
-        Mockito.when(repository.getById("5149")).thenReturn(expected);
-        final Car actual = target.find(id);
-        Assertions.assertEquals(expected, actual);
+        final Car car  = target.find("5149");
+        Mockito.when(repository.getById("5149")).thenReturn(car);
+        Assertions.assertNotNull(car);
+        Mockito.verify(repository).getById(Mockito.anyString());
     }
 
     @Test
-    void delete() {
-        final String id = "5149";
-        target.delete(id);
-        Mockito.verify(repository).delete(id);
+    void deleteEmptyID() {
+        final String id = " ";
+        Assertions.assertDoesNotThrow(() -> target.delete(id));
+        Mockito.verify(repository, Mockito.never()).delete(id);
     }
+
+    @Test
+    void carEqualsCar(){
+        final boolean expected = true;
+        boolean actualValue = target.carEquals(car, car);
+        Assertions.assertEquals(actualValue, expected);
+    }
+
+    @Test
+    void twoSameColorCar(){
+        final boolean expected = false;
+        Car car1 = new PassengerCar(Color.GOLD);
+        Car car2 = new PassengerCar(Color.GOLD);
+        boolean actualValue = target.carEquals(car1, car2);
+        Assertions.assertEquals(actualValue, expected);
+    }
+
 }

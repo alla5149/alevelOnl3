@@ -58,6 +58,4 @@ public abstract class Car implements CountRestore{
         return Objects.hash(count, color, type, id, engine);
     }
 
-
-
 }
