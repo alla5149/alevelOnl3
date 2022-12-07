@@ -37,4 +37,6 @@ public abstract class Car implements CountRestore{
         return String.format("ID: %s, Manufacturer: %s, Engine: %s, Color: %s, Count; %s, Price; %s%n",
                 id, manufacturer, engine, color, count, price);
     }
+
+    ///
 }
