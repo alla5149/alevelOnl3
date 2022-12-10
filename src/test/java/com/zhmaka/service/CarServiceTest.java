@@ -1,12 +1,18 @@
 package com.zhmaka.service;
 
-import com.zhmaka.model.*;
+import com.zhmaka.model.Car;
+import com.zhmaka.model.Color;
+import com.zhmaka.model.PassengerCar;
+import com.zhmaka.model.Type;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 class CarServiceTest {
     private CarService target;
@@ -147,9 +153,14 @@ class CarServiceTest {
     }
 
     @Test
-    void printEngineInfo_empty() {
-        Assertions.assertDoesNotThrow(() -> target.printEngineInfo(null));
-    }
+    public void get_null_Car() {
+        Optional<Car> optionalCar = Optional.empty();
+        try {
+            optionalCar.get();
+        } catch (Exception e) {
+            assert e instanceof NoSuchElementException;
+        }
+
 
     @Test
     void printEngineInfo() {
