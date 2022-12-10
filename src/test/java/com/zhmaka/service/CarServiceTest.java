@@ -1,8 +1,6 @@
 package com.zhmaka.service;
 
-import com.zhmaka.model.Car;
-import com.zhmaka.model.PassengerCar;
-import com.zhmaka.model.Truck;
+import com.zhmaka.model.*;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -57,7 +55,7 @@ class CarServiceTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
+    /*@Test
     void createNegativeNumCars(){
         randomGenerator = Mockito.mock(RandomGenerator.class);
         Mockito.when(randomGenerator.genRandom()).thenReturn(-5);
@@ -65,7 +63,7 @@ class CarServiceTest {
         final int actual = target.createCar(randomGenerator);
         Assertions.assertEquals(expected, actual);
     }
-
+     */
     @Test
     void checkIndexZero(){
         final Car car = new PassengerCar();
@@ -120,6 +118,52 @@ class CarServiceTest {
         Car car2 = new PassengerCar(Color.GOLD);
         boolean actualValue = target.carEquals(car1, car2);
         Assertions.assertEquals(actualValue, expected);
+    }
+
+    @Test
+    void printManufacturerAndCount_notNull(){
+        Assertions.assertDoesNotThrow(()-> target.printManufacturerAndCount(car));
+    }
+    @Test
+    void printManufacturerAndCount_Null() {
+        Assertions.assertDoesNotThrow(() -> target.printManufacturerAndCount(null));
+    }
+
+    @Test
+    void printColor_positive() {
+        Assertions.assertDoesNotThrow(() -> target.printColor(car));
+    }
+
+    @Test
+    void checkCount_not_Empty() {
+        car.setCount(2);
+        Assertions.assertDoesNotThrow(() -> target.checkCount(car));
+    }
+
+    @Test
+    void checkCount_Null() {
+        Assertions.assertNull(null, "UserInputException");
+        Assertions.assertThrows(UserInputException.class, ()-> target.checkCount(car));
+    }
+
+    @Test
+    void printEngineInfo_empty() {
+        Assertions.assertDoesNotThrow(() -> target.printEngineInfo(null));
+    }
+
+    @Test
+    void printEngineInfo() {
+        Assertions.assertDoesNotThrow(() -> target.printEngineInfo(car));
+    }
+
+    @Test
+    void printInfo_aboutCar() {
+        Assertions.assertDoesNotThrow(() -> target.printInfo(car));
+    }
+
+    @Test
+    void printInfo_Is_null() {
+        Assertions.assertDoesNotThrow(() -> target.printInfo(null));
     }
 
 }

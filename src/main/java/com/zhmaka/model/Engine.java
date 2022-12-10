@@ -19,11 +19,4 @@ public class Engine {
         this.power = new Random().nextInt(1000);
         this.type = type;
     }
-
-    private Type getRandomType() {
-        Type[] types = Type.values();
-        int index = random.nextInt(types.length);
-        return types[index];
-    }
-
 }

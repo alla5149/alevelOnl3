@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class PassengerCar extends Car implements CountRestore{
     private int passengerCaunt;
-    public PassengerCar(String manufacturer, Color color, Engine engine) {
+    public PassengerCar() {
         super(Type.CAR);
     }
 
