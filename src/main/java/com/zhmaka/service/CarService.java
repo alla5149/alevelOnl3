@@ -132,10 +132,10 @@ public class CarService {
 //типу і повідомляється про це в консоль. З машини дістається інформація про двигун. На
 //консоль виводиться потужність двигуна. (orElseGet & map)
 public void printEngineInfo (Car car) {
-    Optional<Car> optionalCar = Optional.empty();
+    Optional<Car> optionalCar = Optional.ofNullable(car);
     optionalCar.or(() -> {
                 System.out.println("Car isn't exist. New car will be created");
-                return Optional.of(createCar(Type.CAR));
+                return Optional.ofNullable(createCar(Type.CAR));
             }).map(car1 -> car1.getEngine().getPower()).ifPresent(power -> System.out.println("Engine power of car is = " + power));
 }
 
