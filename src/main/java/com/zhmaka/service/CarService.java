@@ -49,20 +49,8 @@ public class CarService {
 
     */
 
-    public boolean carEquals(Car car1, Car car2) {
-        if (car1 == null || car2 == null) {
-            return false;
-        }
-        if (car1.getType() != car2.getType()) {
-            return false;
-        }
-        if (car1.hashCode() != car2.hashCode()) {
-            return false;
-        }
-        return car1.equals(car2);
-    }
 
-    public Car create(Type type) {
+    public Car create() {
         final Color color = getRandomColor();
         final Car car = new PassengerCar();
         carArrayRepository.save(car);
@@ -74,7 +62,7 @@ public class CarService {
             return -1;
         }
         for (int i = 0; i < count; i++) {
-            create(Type.CAR);
+            create();
         }
         return count;
     }
@@ -105,6 +93,18 @@ public class CarService {
         return car;
     }
 
+    public boolean carEquals(Car car1, Car car2) {
+        if (car1 == null || car2 == null) {
+            return false;
+        }
+        if (car1.getType() != car2.getType()) {
+            return false;
+        }
+        if (car1.hashCode() != car2.hashCode()) {
+            return false;
+        }
+        return car1.equals(car2);
+    }
 
     //метод printManufacturerAndCount - якщо значення присутнє, то на консоль виводиться
     //повідомлення про виробника і кількість (ifPresent & isPresent)
@@ -131,13 +131,30 @@ public class CarService {
 //метод printEngineInfo - якщо значення немає - створюється нова машини випадкового
 //типу і повідомляється про це в консоль. З машини дістається інформація про двигун. На
 //консоль виводиться потужність двигуна. (orElseGet & map)
-public void printEngineInfo (Car car) {
-    Optional<Car> optionalCar = Optional.ofNullable(car);
-    optionalCar.or(() -> {
-                System.out.println("Car isn't exist. New car will be created");
-                return Optional.ofNullable(createCar(Type.CAR));
-            }).map(car1 -> car1.getEngine().getPower()).ifPresent(power -> System.out.println("Engine power of car is = " + power));
+public void printEngineInfo(Car car) {
+    car = Optional.ofNullable(car)
+            .orElseGet(this::createAndGetCar);
+    Optional.ofNullable(car)
+            .map(Car::getEngine)
+            .ifPresent(System.out::println);
 }
+
+public Car createAndGetCar(){
+        Car car = createCar(Type.CAR);
+    System.out.println("New car will be create");
+    return car;
+
+}
+
+//public void printEngineInfo (Car car) {
+//    Optional<Car> optionalCar = Optional.ofNullable(car);
+//    optionalCar.or(() -> {
+//                System.out.println("Car isn't exist. New car will be created");
+//                return Optional.ofNullable(createCar(Type.CAR));
+//            }).map(car1 -> car1.getEngine().
+//                    getPower()).
+//            ifPresent(power -> System.out.println("Engine power of car is = " + power));
+//}
 
 //метод printInfo - якщо значення є - виводиться на консоль повна інформація про машину
 //через метод print, якщо значення немає - створюється випадкова машина після чого
@@ -185,11 +202,18 @@ public void printEngineInfo (Car car) {
         carArrayRepository.insert(index, car);
     }
 
-    public void check(Car car) {
-        if (car.getCount() > 1 && (car.getEngine().getPower() > 200)) {
-            System.out.println("Авто готове до продажу");
+    public void check (final Car car){
+        if(car == null){
+            return;
+        }
+        if (car.getEngine() == null){
+            System.out.println("Engine is null");
+            return;
+        }
+        if (car.getCount() > 0 && car.getEngine().getPower() > 200){
+            System.out.println("Car is already prepared to sell");
         } else if (car.getCount() < 1 && (car.getEngine().getPower() > 200)) {
-            System.out.println("Нет нужного количества автомобилей");
+            System.out.println("The needed type of car isn't exist");
         } else if (car.getCount() >= 1 && (car.getEngine().getPower() <= 200)) {
             System.out.println("Мощность двигателя меньше или равно 200");
         } else {

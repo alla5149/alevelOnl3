@@ -30,6 +30,9 @@ public class CarArrayRepository {
 
     public Car[] getAll() {
         final int newLength = foundLength();
+        if (newLength == 0){
+            return null;
+        }
         final Car[] newCars = new Car[newLength];
         System.arraycopy(cars, 0, newCars, 0, newLength);
         return newCars;

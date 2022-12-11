@@ -17,6 +17,7 @@ public class Engine {
 
     public Engine(String type) {
         this.power = new Random().nextInt(1000);
-        this.type = type;
+        this.type = getType();
     }
+
 }

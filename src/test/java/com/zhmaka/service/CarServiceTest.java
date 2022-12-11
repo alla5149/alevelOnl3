@@ -1,9 +1,6 @@
 package com.zhmaka.service;
 
-import com.zhmaka.model.Car;
-import com.zhmaka.model.Color;
-import com.zhmaka.model.PassengerCar;
-import com.zhmaka.model.Type;
+import com.zhmaka.model.*;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 class CarServiceTest {
@@ -29,7 +25,7 @@ class CarServiceTest {
 
     @Test
     void create_createPassCar() {
-        final Car car = target.create(Type.CAR);
+        final Car car = target.create();
         Assertions.assertNotNull(car);
         Assertions.assertNotEquals(0, car.getPrice());
     }
@@ -37,7 +33,7 @@ class CarServiceTest {
 
     @Test
     void create_createTruck() {
-        final Car car = target.create(Type.TRUCK);
+        final Car car = target.create();
         Assertions.assertNotNull(car);
         Assertions.assertNotEquals(0, car.getPrice());
     }
@@ -47,7 +43,7 @@ class CarServiceTest {
     void createCarRandom(){
         randomGenerator = Mockito.mock(RandomGenerator.class);
         Mockito.when(randomGenerator.genRandom()).thenReturn(2);
-        final int actual = target.create(randomGenerator);
+        final int actual = target.create();
         final int expected = 2;
         Assertions.assertEquals(expected, actual);
     }
@@ -57,7 +53,7 @@ class CarServiceTest {
         randomGenerator = Mockito.mock(RandomGenerator.class);
         Mockito.when(randomGenerator.genRandom()).thenReturn(1);
         final int expected = 1;
-        final int actual = target.create(randomGenerator);
+        final int actual = target.create();
         Assertions.assertEquals(expected, actual);
     }
 
@@ -148,19 +144,20 @@ class CarServiceTest {
 
     @Test
     void checkCount_Null() {
-        Assertions.assertNull(null, "UserInputException");
-        Assertions.assertThrows(UserInputException.class, ()-> target.checkCount(car));
+//        Assertions.assertNull(null, "UserInputException");
+//        Assertions.assertThrows(UserInputException.class, ()-> target.checkCount(car));
+        try {
+            Optional.of(null);
+        } catch (Exception e) {
+            assert e instanceof NullPointerException;
+        }
     }
 
-    @Test
-    public void get_null_Car() {
-        Optional<Car> optionalCar = Optional.empty();
-        try {
-            optionalCar.get();
-        } catch (Exception e) {
-            assert e instanceof NoSuchElementException;
-        }
 
+    @Test
+    void printEngineInfo_empty() {
+        Assertions.assertDoesNotThrow(() -> target.printEngineInfo(null));
+    }
 
     @Test
     void printEngineInfo() {

@@ -30,14 +30,14 @@ public abstract class Car implements CountRestore{
     public Car(Color color, Type type){
         this.manufacturer = getManufacturer();
         this.color = color;
-        this.id = UUID.randomUUID().toString();
-        this.count = 1;
         this.type = type;
+        this.count = 1;
+        this.id = UUID.randomUUID().toString();
     }
 
     public Car(Type type){
-        this.id = UUID.randomUUID().toString();
         this.type = type;
+        this.id = UUID.randomUUID().toString();
     }
 
     @Override
