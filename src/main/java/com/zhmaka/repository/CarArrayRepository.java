@@ -5,6 +5,18 @@ import com.zhmaka.model.Color;
 
 public class CarArrayRepository {
     private static Car[] cars = new Car[10];
+    public static CarArrayRepository carArrayRepository;
+    public CarArrayRepository() {
+    }
+
+    public static CarArrayRepository getInstance(){
+        cars = new Car[10];
+        if (carArrayRepository == null){
+            return new CarArrayRepository();
+        }
+        return carArrayRepository;
+    }
+
     public void save(final Car car) {
         if (car == null) {
             return;

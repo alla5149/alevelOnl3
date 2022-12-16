@@ -1,5 +1,6 @@
 package com.zhmaka.util;
 
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
@@ -9,8 +10,8 @@ import java.io.InputStreamReader;
 public class UserInput {
     private static final BufferedReader READER =
             new BufferedReader(new InputStreamReader(System.in));
-
-    public static int menu(final String[] names) throws IOException {
+    @SneakyThrows
+    public static int menu(final String[] names) {
         int userChoice = -1;
         do {
             System.out.println("Write what you want to do:");
@@ -26,7 +27,7 @@ public class UserInput {
         return userChoice;
     }
 
-
+@SneakyThrows
     public static int getInt(final String option) {
         String line;
         do {

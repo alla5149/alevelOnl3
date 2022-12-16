@@ -12,43 +12,25 @@ public class CarService {
 
     private final CarArrayRepository carArrayRepository;
     private final Random random = new Random();
+    private static CarService carService;
 
     public CarService(final CarArrayRepository carArrayRepository) {
         this.carArrayRepository = carArrayRepository;
     }
 
-   /* public PassengerCar createPassengerCar() {
-        final PassengerCar passengerCar = new PassengerCar(manufacturer, color, engine);
-        Engine engine = new Engine();
-        passengerCar.setManufacturer(getRandomString());
-        passengerCar.setEngine(engine);
-        passengerCar.setColor(getRandomColor());
-        passengerCar.setPrice(random.nextInt(1000));
-        passengerCar.setPassengerCaunt(random.nextInt(5));
-        passengerCar.setCount(1);
-        passengerCar.setType(Type.CAR);
-        passengerCar.restore();
-        carArrayRepository.save(passengerCar);
-        return passengerCar;
+   public static CarService getInstance(){
+        if(carService == null){
+            carService = new CarService(CarArrayRepository.getInstance());
+        }
+        return carService;
+   }
+
+    public static CarService getInstance(final CarArrayRepository repository) {
+        if (carService == null) {
+            carService = new CarService(repository);
+        }
+        return carService;
     }
-
-    public Truck createTruck() {
-        final Truck truck = new Truck(manufacturer, color, engine);
-        Engine engine = new Engine();
-        truck.setManufacturer(getRandomString());
-        truck.setEngine(engine);
-        truck.setColor(getRandomColor());
-        truck.setPrice(random.nextInt(1000));
-        truck.setLoadCapacity(random.nextInt(1000));
-        truck.setCount(1);
-        truck.setType(Type.TRUCK);
-        truck.restore();
-        carArrayRepository.save(truck);
-        return truck;
-    }
-
-    */
-
 
     public Car create() {
         final Color color = getRandomColor();
@@ -230,9 +212,13 @@ public Car createAndGetCar(){
     public void printAll() {
         final Car[] all = carArrayRepository.getAll();
         System.out.println(Arrays.toString(all));
+        System.out.println();
     }
 
     public Car[] getAll() {
+        if(carArrayRepository.getAll() == null){
+            return new Car[0];
+        }
         return carArrayRepository.getAll();
     }
 
@@ -289,6 +275,10 @@ public Car createAndGetCar(){
             sb.append(str.charAt(number));
         }
         return sb.toString();
+    }
+
+    public int compareCar(final Car first, final Car second) {
+        return first.getId().compareTo(second.getId());
     }
 
 }

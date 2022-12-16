@@ -1,28 +1,29 @@
 package com.zhmaka.action;
 
 import com.zhmaka.util.UserInput;
+import lombok.SneakyThrows;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public class CreateAction implements Action{
-    private static final int DEFAULT_COUNT = 10;
+    private static final int DEFAULT_CARS = 10;
 
+    @SneakyThrows
     @Override
-    public void execute() throws IOException {
-        String[] menu = {"Input your value", "Default value"};
-        final int userChoice = UserInput.menu(menu);
+    public void execute() {
+        String[] strings = {"Input your number of cars", "Default number"};
+        final int userChoice = UserInput.menu(strings);
 
-        int count;
+        int countOfCars;
         if (userChoice == 0) {
-            count = Optional.of(UserInput.getInt("Write amount of cars"))
+            countOfCars = Optional.of(UserInput.getInt("How many cars do you want to create?"))
                     .filter(c -> c >= 1)
-                    .orElse(DEFAULT_COUNT);
+                    .orElse(DEFAULT_CARS);
         } else {
-            count = DEFAULT_COUNT;
+            countOfCars = DEFAULT_CARS;
         }
 
-        CAR_SERVICE.create(count);
-        System.out.printf("Created %d cars%n", count);
+        CAR_SERVICE.create(countOfCars);
+        System.out.printf("Created %d cars%n", countOfCars);
     }
 }
