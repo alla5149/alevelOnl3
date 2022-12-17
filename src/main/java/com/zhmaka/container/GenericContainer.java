@@ -22,9 +22,7 @@ public class GenericContainer <T extends Car>{
         t.setCount(t.getCount() + random.nextInt(200)+100);
     }
 
-    
-
-
-
-
+    public <V extends Number> void increaseCount(V number, T t){
+        t.setCount(t.getCount()+ (int)number);
+    }
 }

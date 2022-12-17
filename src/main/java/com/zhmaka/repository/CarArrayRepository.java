@@ -3,7 +3,7 @@ package com.zhmaka.repository;
 import com.zhmaka.model.Car;
 import com.zhmaka.model.Color;
 
-public class CarArrayRepository {
+public class CarArrayRepository implements InterfaceForRepository <Car>{
     private static Car[] cars = new Car[10];
     public static CarArrayRepository carArrayRepository;
     public CarArrayRepository() {
