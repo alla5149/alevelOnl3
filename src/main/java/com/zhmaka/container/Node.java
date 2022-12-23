@@ -10,8 +10,11 @@ public class Node<T extends Car> {
     T data; // now
 
     public Node(Node<T> prev, T car,Node<T> next) {
+        this.prev = prev;
         this.data = car;
         this.next = next;
-        this.prev = prev;
+    }
+
+    public Node() {
     }
 }

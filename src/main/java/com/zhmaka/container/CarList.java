@@ -1,14 +1,11 @@
 package com.zhmaka.container;
 
 import com.zhmaka.model.Car;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
-public class CarList <T extends Car> implements Iterable {
+public class CarList<T extends Car> implements Iterable {
     protected Node<T> first;
     protected Node<T> last;
     private int size;
@@ -17,6 +14,20 @@ public class CarList <T extends Car> implements Iterable {
 
     public CarList() {
     }
+
+    public void add(T data) {
+        Node<T> node = new Node<>();
+        node.data = data;
+        size++;
+
+        Node<T> lastNode = last.prev;
+        if (lastNode != first) {
+            node.prev = lastNode;
+        }
+        lastNode.next = node;
+        last.prev = node;
+    }
+
 
     public void addFirst(final T car) {
         if (Optional.ofNullable(car).isPresent()) {
@@ -48,57 +59,162 @@ public class CarList <T extends Car> implements Iterable {
     }
 
 
-    private void addAfter(Node<T> current, T car) {
-            Node<T> newNode = new Node<>(current, car, current.next);
-            if (current.next == null) {
-                last = newNode;
-            } else {
-                current.next.prev = newNode;
+    public int getIndex(final T car) {
+        Node<T> currentNode = first;
+        int index = -1;
+        boolean found = false;
+        while (currentNode.next != null) {
+            index++;
+            if (car.getId().equals(currentNode.getData().getId())) {
+                found = true;
+                break;
             }
-            current.next = newNode;
+            currentNode = currentNode.next;
+        }
+        if (found = false) {
+            index = -1;
+        }
+        return index;
+    }
+
+
+    public void insertIndex(int index, final T car) {
+        if (size == 0 && index == 0) {
+            add(car);
+            return;
+        }
+        if (size != 0 && index == 0) {
+            addFirst(car);
+            return;
+        }
+        if (index >= size) {
+            addLast(car);
+        } else {
+            Node<T> node = verifyIndexGetNode(index);
+            Node<T> newNode = new Node<>();
+            Node<T> prevNode = node.prev;
+            newNode.data = car;
+            newNode.next = node;
+            newNode.prev = prevNode;
+            prevNode.next = newNode;
+            node.prev = newNode;
             size++;
         }
+    }
 
-
-    private T remove(final Node<T> node) {
-
-        T oldData = node.data;
-       final Node<T> prev = node.prev;
-       final Node<T> next = node.next;
-
-        if (prev == null) {
-            first = node.next;
-        } else {
-            prev.next = next;
-            node.prev = null;
+    private Node<T> verifyIndexGetNode(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException();
         }
-        if (next == null) {
-            last = node.prev;
-        } else {
-            next.prev = prev;
+        Node<T> node = first.next;
+        while (index-- > 0) {
+            node = node.next;
+        }
+        return node;
+    }
+
+    public void remove(int index) {
+        Node<T> node = verifyIndexGetNode(index);
+        Node<T> prevNode = node.prev;
+        Node<T> nextNode = node.next;
+
+        if (size == 1) {
+            first.next = last;
+            last.prev = first;
+            size--;
+        } else if (index == 0) {
+            first.next = nextNode;
+            nextNode.prev = null;
             node.next = null;
+            size--;
+        } else if (index == getSize() - 1) {
+            last.prev = prevNode;
+            prevNode.next = null;
+            node.prev = null;
+            size--;
+        } else {
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
+            node.next = null;
+            node.prev = null;
+            size--;
         }
-        node.data = null;
-        size--;
-        modCount++;
-        return oldData;
     }
 
-    @NotNull
-    @Override
-    public Iterator iterator() {
-        return null;
+    public int getCount() {
+        int count = 0;
+        Node current = first;
+        while (current.next != null) {
+            count += current.getData().getCount();
+            current = current.next;
+        }
+        return count;
     }
 
-    @Override
-    public void forEach(Consumer action) {
-        Iterable.super.forEach(action);
+    public int printNode() {
+        Node current = first;
+        if (first == null) {
+            System.out.println("CarList is empty ");
+        }
+        System.out.println("Current list consist: ");
+        while (current != null) {
+            System.out.println(current.data.getId().toString());
+            current = current.next;
+        }
+        return 0;
     }
 
-    @Override
-    public Spliterator spliterator() {
-        return Iterable.super.spliterator();
+    public Iterator<T> iterator() {
+        return new myIterator<>(this);
     }
 
+    class myIterator<T extends Car> implements Iterator<T> {
+        Node<T> current;
+
+        public myIterator(CarList<T> carList) {
+            current = carList.first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public T next() {
+            T car = current.data;
+            current = current.next;
+            return car;
+        }
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getModCount() {
+        return modCount;
+    }
+
+    public void setModCount(int modCount) {
+        this.modCount = modCount;
+    }
 
 }
+
+
+
+

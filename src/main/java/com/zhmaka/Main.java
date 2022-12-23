@@ -16,7 +16,13 @@ public class Main {
         CarList<Car> carList = new CarList<>();
         carList.addFirst(carService.createCar(Type.CAR));
         carList.addLast(carService.createCar(Type.CAR));
-        carList.
+        carList.getIndex(carService.createCar(Type.CAR));
+        carList.insertIndex(0, carService.createCar(Type.CAR));
+        System.out.println(carList.size());
+        carList.printNode();
+        System.out.println(carList.getCount());
+
+
 
 
 
