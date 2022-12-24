@@ -1,7 +1,9 @@
 package com.zhmaka;
 
-import com.zhmaka.container.GenericContainer;
+import com.zhmaka.container.CarList;
+import com.zhmaka.model.Car;
 import com.zhmaka.model.Type;
+import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.service.CarService;
 
 import java.io.BufferedReader;
@@ -10,20 +12,27 @@ import java.io.InputStreamReader;
 public class Main {
     public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static void main(final String[] args){
-        CarService carService = CarService.getInstance();
-        GenericContainer genericContainer = new GenericContainer<>(CarService.getInstance().createCar(Type.CAR));
-        genericContainer.increaseCount();
-        genericContainer.print(genericContainer.t);
-        genericContainer.increaseCount(10, genericContainer.t);
-        genericContainer.print(genericContainer.t);
+        CarService carService = new CarService(new CarArrayRepository());
+        CarList<Car> carList = new CarList<>();
+        carList.addFirst(carService.createCar(Type.CAR));
+        carList.addLast(carService.createCar(Type.CAR));
+        carList.getIndex(carService.createCar(Type.CAR));
+        carList.insertIndex(0, carService.createCar(Type.CAR));
+        System.out.println(carList.size());
+        carList.printNode();
+        System.out.println(carList.getCount());
 
 
 
 
 
 
-
-
+//        CarService carService = CarService.getInstance();
+//        GenericContainer genericContainer = new GenericContainer<>(CarService.getInstance().createCar(Type.CAR));
+//        genericContainer.increaseCount();
+//        genericContainer.print(genericContainer.t);
+//        genericContainer.increaseCount(10, genericContainer.t);
+//        genericContainer.print(genericContainer.t);
 
 //        carService.create(8);
 //        carService.printAll();

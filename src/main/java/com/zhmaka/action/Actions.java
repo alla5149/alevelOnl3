@@ -25,9 +25,12 @@ public enum Actions {
                 .toArray(String[]::new);
         return names;
     }
-
-    public void execute() {
+    public boolean execute(){
+        if(action==null){
+            return false;
+        }
         action.execute();
+        return true;
     }
 
 }

@@ -34,7 +34,7 @@ public class CarService {
 
     public Car create() {
         final Color color = getRandomColor();
-        final Car car = new PassengerCar();
+        final Car car = new PassengerCar(color);
         carArrayRepository.save(car);
         return car;
     }
