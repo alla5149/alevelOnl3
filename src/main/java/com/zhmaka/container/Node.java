@@ -2,19 +2,33 @@ package com.zhmaka.container;
 
 import com.zhmaka.model.Car;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Node<T extends Car> {
-    Node<T> prev; // before
-    Node<T> next; // next
-    T data; // now
+    Node<T> prev; // left
+    Node<T> next; // rigth
+    T data;
 
-    public Node(Node<T> prev, T car,Node<T> next) {
+
+
+    public Node(final T car) {
         this.prev = prev;
         this.data = car;
         this.next = next;
     }
 
     public Node() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "data =" + data +
+                ", left =" + prev +
+                ", right =" + next +
+                '}';
     }
 }
