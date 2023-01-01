@@ -4,9 +4,8 @@ import com.zhmaka.model.*;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CarService {
 
@@ -151,6 +150,28 @@ public Car createAndGetCar(){
             printInfo(newCar);
         });
     }
+//Отримує список Car і повертає Map де ключ це Manufacturer, а значення це кількість
+//машин
+    public Map<String, Integer> mapManufacturerAndCount(){
+        final Map<String, Integer> map = Arrays.stream(getAll())
+                .collect(Collectors.toMap(Car::getManufacturer, Car::getCount, (x, someElement ) -> x));
+        return map;
+
+    }
+//Отримує список Car і повертає Map де ключ це Engine/power , а значення це список
+//Car з цим двигуном
+
+    public Map<Engine, List<Car>> mapEngineInCarList(final Car [] cars){
+        final Map<Engine, List<Car>> mapEngineInCarList = new HashMap<>();
+        for(int i = 0; i< cars.length; i++){
+            mapEngineInCarList.put(cars[i].getEngine(), new ArrayList<>());
+        }
+        for (int i = 0; i < cars.length; i++) {
+            mapEngineInCarList.get(cars[i].getEngine()).add(cars[i]);
+        }
+        return mapEngineInCarList;
+    }
+
 
        /* public int createPassengerCar (RandomGenerator randomGenerator){
             int count = randomGenerator.genRandom();

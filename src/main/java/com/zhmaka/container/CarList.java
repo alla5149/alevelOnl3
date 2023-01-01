@@ -5,7 +5,7 @@ import com.zhmaka.model.Car;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class CarList<T extends Car> implements Iterable {
+public class CarList<T extends Car> implements Iterable<T>{
     protected Node<T> first;
     protected Node<T> last;
     private int size;
@@ -31,7 +31,7 @@ public class CarList<T extends Car> implements Iterable {
 
     public void addFirst(final T car) {
         if (Optional.ofNullable(car).isPresent()) {
-            Node<T> newNode = new Node<>(null, car, first);
+            Node<T> newNode = new Node<>(car);
             if (first != null) {
                 first.prev = newNode;
             } else {
@@ -46,7 +46,7 @@ public class CarList<T extends Car> implements Iterable {
     public void addLast(final T car) {
         if (Optional.ofNullable(car).isPresent()) {
             Node<T> l = last;
-            Node<T> newNode = new Node<T>(l, car, null);
+            Node<T> newNode = new Node<T>(car);
             last = newNode;
             if (l == null) {
                 first = newNode;
@@ -93,7 +93,7 @@ public class CarList<T extends Car> implements Iterable {
             Node<T> node = verifyIndexGetNode(index);
             Node<T> newNode = new Node<>();
             Node<T> prevNode = node.prev;
-            newNode.data = car;
+            newNode.data= car;
             newNode.next = node;
             newNode.prev = prevNode;
             prevNode.next = newNode;
@@ -158,7 +158,7 @@ public class CarList<T extends Car> implements Iterable {
         }
         System.out.println("Current list consist: ");
         while (current != null) {
-            System.out.println(current.data.getId().toString());
+            System.out.println(current.getData().getId().toString());
             current = current.next;
         }
         return 0;
