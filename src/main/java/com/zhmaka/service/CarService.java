@@ -62,7 +62,7 @@ public class CarService {
         if (count <= 0) {
             return -1;
         }
-        create(count);
+        create();
         printAll();
         return count;
     }
@@ -171,16 +171,16 @@ public class CarService {
 
     }
 
-    public Map<Engine, List<Car>> mapEngineInCarList(final List<? extends Car> cars){
-        final List<Engine> list = cars.stream().map(Car::getEngine).collect(Collectors.toList());
-        Map<Integer, List<Car>> map = new HashMap<>();
-        for (Engine engine : list) {
-            List<Car> carWithSameEngine = Arrays.stream(getAll())
-                    .filter(x -> x.getEngine().equals(engine)).collect(Collectors.toList());
-            map.put(engine.getPower(), carWithSameEngine);
-        }
-        return map;
-    }
+//    public Map<Engine, List<Car>> mapEngineInCarList(final List<? extends Car> cars){
+//        final List<Engine> list = cars.stream().map(Car::getEngine).collect(Collectors.toList());
+//        Map<Integer, List<Car>> map = new HashMap<>();
+//        for (Engine engine : list) {
+//            List<Car> carWithSameEngine = Arrays.stream(getAll())
+//                    .filter(x -> x.getEngine().equals(engine)).collect(Collectors.toList());
+//            map.put(engine.getPower(), carWithSameEngine);
+//        }
+//        return map;
+//    }
 
 
 //    17 HOMEWORK
@@ -226,6 +226,44 @@ public class CarService {
 //    mapToObject Написати реалізацію Function, яка приймає Map<String, Object> і створює
 //    конкретну машину на підставі полів Map
 
+    // Це не мій метод. Я його не писала. Я перевірила як він працює. Але код закоментований. Його не оцінюйте будь ласка
+
+//    public Function<Map<String, Object>, Car> mapToObject = map -> {
+//        Type type = (Type) map.getOrDefault("type", Type.CAR);
+//        if (type == Type.CAR) {
+//            return createPassengerCar(map);
+//        } else {
+//            return createTruck(map);
+//        }
+//    };
+//
+//    private PassengerCar createPassengerCar(final Map<String, Object> map) {
+//        final PassengerCar passengerCar = (PassengerCar) createAbstractCar(Type.CAR, map);
+//        final int passengerCount = (int) map.getOrDefault("passengerCount", 1);
+//        passengerCar.setPassengerCaunt(passengerCount);
+//    }
+//
+//    private Truck createTruck(final Map<String, Object> map) {
+//        final Truck truck = (Truck) createAbstractCar(Type.TRUCK, map);
+//        final int loadCapacity = (int) map.getOrDefault("loadCapacity", 10);
+//        truck.setLoadCapacity(loadCapacity);
+//        return truck;
+//    }
+//
+//    private Car createAbstractCar(final Type type, final Map<String, Object> map) {
+//        final Car car;
+//        if (type == Type.CAR) {
+//            car = new PassengerCar();
+//
+//        } else {
+//            car = new Truck();
+//        }
+//        final int count = (int) map.getOrDefault("count", 10);
+//        car.setCount(count);
+//        final Color color = (Color) map.getOrDefault("color", Color.GOLD);
+//        car.setColor(color);
+//        return car;
+//    }
 
 
 //    innerList метод приймає колекцію List<List<Car>>, дістає машини, сортує за кольорами,

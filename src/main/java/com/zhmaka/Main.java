@@ -44,8 +44,11 @@ public class Main {
         map.put("count", 10);
         map.put("color", Color.GOLD);
         map.put("type", Type.CAR);
-        map.put("passengerCount", 21);
+        map.put("passengerCount", 12);
         CarService carService = CarService.getInstance();
+
+//        Car car = carService.mapToObject.apply(map);
+//        System.out.println(car);
 
     }
 }

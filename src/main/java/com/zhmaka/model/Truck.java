@@ -9,7 +9,7 @@ import lombok.Setter;
 public class Truck extends Car implements CountRestore {
     private int loadCapacity;
 
-    public Truck(String manufacturer, Color color, Engine engine) {
+    public Truck(Manufacturer manufacturer, Color color, Engine engine) {
         super(Type.TRUCK);
     }
 
