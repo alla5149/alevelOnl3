@@ -2,6 +2,7 @@ package com.zhmaka.action;
 
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 @Getter
@@ -25,7 +26,7 @@ public enum Actions {
                 .toArray(String[]::new);
         return names;
     }
-    public boolean execute(){
+    public boolean execute() throws IOException {
         if(action==null){
             return false;
         }

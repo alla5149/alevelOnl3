@@ -4,7 +4,9 @@ import com.zhmaka.model.*;
 import com.zhmaka.repository.CarArrayRepository;
 import com.zhmaka.util.RandomGenerator;
 
+import java.io.ObjectInputFilter;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CarService {
@@ -13,20 +15,24 @@ public class CarService {
     private final Random random = new Random();
     private static CarService carService;
 
-    public CarService(final CarArrayRepository carArrayRepository) {
+    static List<Car> cars;
+
+
+    public CarService(final CarArrayRepository carArrayRepository, List<Car> cars) {
         this.carArrayRepository = carArrayRepository;
+        this.cars = cars;
     }
 
-   public static CarService getInstance(){
-        if(carService == null){
-            carService = new CarService(CarArrayRepository.getInstance());
+    public static CarService getInstance() {
+        if (carService == null) {
+            carService = new CarService(CarArrayRepository.getInstance(), cars);
         }
         return carService;
-   }
+    }
 
     public static CarService getInstance(final CarArrayRepository repository) {
         if (carService == null) {
-            carService = new CarService(repository);
+            carService = new CarService(repository, cars);
         }
         return carService;
     }
@@ -38,15 +44,15 @@ public class CarService {
         return car;
     }
 
-    public int create(final int count) {
-        if (count <= 0) {
-            return -1;
-        }
-        for (int i = 0; i < count; i++) {
-            create();
-        }
-        return count;
-    }
+//    public Car[] create(final int count) {
+//        if (count <= 0) {
+//            return -1;
+//        }
+//        for (int i = 0; i < count; i++) {
+//            create();
+//        }
+//        return count;
+//    }
 
     public int create(final RandomGenerator randomGenerator) {
         if (randomGenerator == null) {
@@ -74,6 +80,39 @@ public class CarService {
         return car;
     }
 
+    public Car [] getAll() {
+        if (carArrayRepository.getAll() == null) {
+            return new Car[0];
+        }
+        return carArrayRepository.getAll();
+    }
+
+    public Optional<Car> findByID(final String id) {
+        return cars.stream()
+                .filter(car -> car.getId().equals(id))
+                .findAny();
+    }
+
+    public List<Car> findByManufacturer(final Manufacturer manufacturer) {
+        return cars.stream()
+                .filter(car -> car.getManufacturer().equals(manufacturer)).collect(Collectors.toList());
+    }
+
+
+    public void delete(final String id) {
+        if (id == null || id.isEmpty()) {
+            return;
+        }
+        carArrayRepository.delete(id);
+    }
+
+    public void insert(int index, final Car car) {
+        if (index < 0 || car == null) {
+            return;
+        }
+        carArrayRepository.insert(index, car);
+    }
+
     public boolean carEquals(Car car1, Car car2) {
         if (car1 == null || car2 == null) {
             return false;
@@ -87,133 +126,132 @@ public class CarService {
         return car1.equals(car2);
     }
 
-    //метод printManufacturerAndCount - якщо значення присутнє, то на консоль виводиться
-    //повідомлення про виробника і кількість (ifPresent & isPresent)
     public void printManufacturerAndCount(final Car car) {
         Optional<Car> optionalCar = Optional.ofNullable(car);
         optionalCar.ifPresent(val -> System.out.println(val.getCount() + " " + val.getManufacturer()));
     }
 
-//метод printColor - якщо значення немає - створюється нова машина випадкового типу.
-//Виводиться на консоль колір машини (orElse)
     public void printColor(final Car car) {
         Optional<Car> optionalCar = Optional.ofNullable(car);
         System.out.println(optionalCar.orElse(new PassengerCar(getRandomColor())).getColor().toString());
     }
-//метод checkCount - фільтрується значення за кількістю, воно повинно бути більше 10,
-//якщо значення немає - викидається виняток. Створити своє неперевірюване виключення
-//UserInputException. На консоль виводиться повідомлення про виробника та кількість.
-//(filter & orElseThrow)
+
     public void checkCount(final Car car) throws UserInputException {
         Optional<Car> optionalCar = Optional.ofNullable(car);
-        Car car1 = optionalCar.filter(val -> val.getCount() > 10).orElseThrow(() -> new UserInputException("Number of cars equals 10 or less"));
+        Car car1 = optionalCar.filter(val -> val.getCount() > 10)
+                .orElseThrow(() -> new UserInputException("Number of cars equals 10 or less"));
         System.out.println(car1.getCount() + " " + car1.getType());
     }
-//метод printEngineInfo - якщо значення немає - створюється нова машини випадкового
-//типу і повідомляється про це в консоль. З машини дістається інформація про двигун. На
-//консоль виводиться потужність двигуна. (orElseGet & map)
-public void printEngineInfo(Car car) {
-    car = Optional.ofNullable(car)
-            .orElseGet(this::createAndGetCar);
-    Optional.ofNullable(car)
-            .map(Car::getEngine)
-            .ifPresent(System.out::println);
-}
 
-public Car createAndGetCar(){
+    public void printEngineInfo(Car car) {
+        car = Optional.ofNullable(car).orElseGet(this::createAndGetCar);
+        Optional.ofNullable(car).map(Car::getEngine).ifPresent(System.out::println);
+    }
+
+    public Car createAndGetCar(){
         Car car = createCar(Type.CAR);
-    System.out.println("New car will be create");
-    return car;
+        System.out.println("New car will be create");
+        return car;
+    }
 
-}
-
-//public void printEngineInfo (Car car) {
-//    Optional<Car> optionalCar = Optional.ofNullable(car);
-//    optionalCar.or(() -> {
-//                System.out.println("Car isn't exist. New car will be created");
-//                return Optional.ofNullable(createCar(Type.CAR));
-//            }).map(car1 -> car1.getEngine().
-//                    getPower()).
-//            ifPresent(power -> System.out.println("Engine power of car is = " + power));
-//}
-
-//метод printInfo - якщо значення є - виводиться на консоль повна інформація про машину
-//через метод print, якщо значення немає - створюється випадкова машина після чого
-//виводитися інформація методом print (ifPresentOrElse)
-
-    public void  printInfo(final Car car){
+    public void printInfo(final Car car) {
         Optional<Car> optionalCar = Optional.ofNullable(car);
-        optionalCar.ifPresentOrElse(car1 ->{
+        optionalCar.ifPresentOrElse(car1 -> {
             print(car1);
         }, () -> {
             final Car newCar = createCar(Type.CAR);
             printInfo(newCar);
         });
     }
-//Отримує список Car і повертає Map де ключ це Manufacturer, а значення це кількість
-//машин
-    public Map<String, Integer> mapManufacturerAndCount(){
-        final Map<String, Integer> map = Arrays.stream(getAll())
-                .collect(Collectors.toMap(Car::getManufacturer, Car::getCount, (x, someElement ) -> x));
+
+    public Map<Manufacturer, Integer> mapManufacturerAndCount(final List<? extends Car> cars) {
+        final Map<Manufacturer, Integer> map = cars.stream()
+                .collect(Collectors.toMap(Car::getManufacturer, Car::getCount, (x, getElement) -> x));
         return map;
 
     }
-//Отримує список Car і повертає Map де ключ це Engine/power , а значення це список
-//Car з цим двигуном
 
-    public Map<Engine, List<Car>> mapEngineInCarList(final Car [] cars){
-        final Map<Engine, List<Car>> mapEngineInCarList = new HashMap<>();
-        for(int i = 0; i< cars.length; i++){
-            mapEngineInCarList.put(cars[i].getEngine(), new ArrayList<>());
+    public Map<Engine, List<Car>> mapEngineInCarList(final List<? extends Car> cars){
+        final List<Engine> list = cars.stream().map(Car::getEngine).collect(Collectors.toList());
+        Map<Integer, List<Car>> map = new HashMap<>();
+        for (Engine engine : list) {
+            List<Car> carWithSameEngine = Arrays.stream(getAll())
+                    .filter(x -> x.getEngine().equals(engine)).collect(Collectors.toList());
+            map.put(engine.getPower(), carWithSameEngine);
         }
-        for (int i = 0; i < cars.length; i++) {
-            mapEngineInCarList.get(cars[i].getEngine()).add(cars[i]);
-        }
-        return mapEngineInCarList;
+        return map;
     }
 
 
-       /* public int createPassengerCar (RandomGenerator randomGenerator){
-            int count = randomGenerator.genRandom();
-            if (count != 0) {
-                for (int i = 0; i < count; i++) {
-                    PassengerCar passengerCar = createPassengerCar();
-                    print(passengerCar);
-                }
-                return count;
-            }
-            return -1;
-        }
+//    17 HOMEWORK
+//    findManafacturerByPrice Знайти машини дорожчі за ціну Х і показати їхнього виробника
 
-        public int createTruck (RandomGenerator randomGenerator){
-            int count = randomGenerator.genRandom();
-            if (count != 0) {
-                for (int i = 0; i < count; i++) {
-                    Truck truck = createTruck();
-                    print(truck);
-                }
-                return count;
-            }
-            return -1;
-        }
-*/
-
-    public void insert(int index, final Car car) {
-        if (index < 0 || car == null) {
-            return;
-        }
-        carArrayRepository.insert(index, car);
+    public void findManafacturerByPrice(final List<? extends Car> cars, int price) {
+        List<Manufacturer> manufacturers = cars.stream().filter(x -> x.getPrice() > price).map(Car::getManufacturer)
+                .collect(Collectors.toList());
     }
 
-    public void check (final Car car){
-        if(car == null){
+    // countSum Порахувати суму машин через reduce
+
+    public int countSum(final List<? extends Car> cars) {
+        int sum = cars.stream().map(Car::getPrice).reduce(0, Integer::sum);
+        return sum;
+    }
+
+//    mapToMap Відсортувати машини за виробником, прибрати дублікати, перетворити на
+//    Map, де ключ - це id машини, а значення - це її тип (зберігаючи порядок)
+
+
+    public Map<String, Type> mapToMap(final List<? extends Car> cars) {
+        HashMap<String, Type> map = cars.stream().sorted(Comparator.comparing(Car::getManufacturer)).distinct().
+                collect(Collectors.toMap(Car::getId, Car::getType, (x, y) -> y, HashMap::new));
+        System.out.println("Sorted steam " + map);
+        return map;
+    }
+
+    //    statistic Отримати статистику за ціною всіх машин
+    public DoubleSummaryStatistics stats(final List<? extends Car> cars) {
+        DoubleSummaryStatistics stats = cars.stream().collect(Collectors.summarizingDouble(Car::getPrice));
+        return stats;
+    }
+
+    //    priceCheck Написати реалізацію предиката, який перевіряє, що в переданій колекції в усіх
+//    машин є ціна, вища за число Х.
+    public boolean priceCheck(final List<? extends Car> cars, int price) {
+        boolean match = cars.stream().allMatch(car -> car.getPrice() > price);
+        return match;
+    }
+
+
+//    mapToObject Написати реалізацію Function, яка приймає Map<String, Object> і створює
+//    конкретну машину на підставі полів Map
+
+
+
+//    innerList метод приймає колекцію List<List<Car>>, дістає машини, сортує за кольорами,
+//    виводить інформацію на консоль, фільтрує за ціною, збирає в Map, де ключ - це колір, а
+//    значення - к-ть машин
+
+    public Map <Color, Integer> innerList(final List<List<Car>> cars) {
+        Map<Color, Integer> map = cars.stream().flatMap(List::stream)
+                .sorted(Comparator.comparing(Car::getColor))
+                .peek(System.out::println)
+                .filter(x -> x.getPrice() > 1000)
+                .collect(Collectors.toMap(Car::getColor, Car::getCount));
+        return map;
+    }
+
+
+
+    public static void check(final Car car) {
+        if (car == null) {
             return;
         }
-        if (car.getEngine() == null){
+        if (car.getEngine() == null) {
             System.out.println("Engine is null");
             return;
         }
-        if (car.getCount() > 0 && car.getEngine().getPower() > 200){
+        if (car.getCount() > 0 && car.getEngine().getPower() > 200) {
             System.out.println("Car is already prepared to sell");
         } else if (car.getCount() < 1 && (car.getEngine().getPower() > 200)) {
             System.out.println("The needed type of car isn't exist");
@@ -236,37 +274,17 @@ public Car createAndGetCar(){
         System.out.println();
     }
 
-    public Car[] getAll() {
-        if(carArrayRepository.getAll() == null){
-            return new Car[0];
-        }
-        return carArrayRepository.getAll();
-    }
 
-    public Car find(final String id) {
-        if (id == null || id.isEmpty()) {
-            return null;
-        }
-        return carArrayRepository.getById(id);
-    }
-
-    public void delete(final String id) {
-        if (id == null || id.isEmpty()) {
-            return;
-        }
-        carArrayRepository.delete(id);
-    }
-
-    public void changeRandomColor(final String id) {
-        if (id == null || id.isEmpty()) {
-            return;
-        }
-        final Car car = find(id);
-        if (car == null) {
-            return;
-        }
-        findChangeRandomColor(car);
-    }
+//    public void changeRandomColor(final String id) {
+//        if (id == null || id.isEmpty()) {
+//            return;
+//        }
+//        final Car car = findByID(id);
+//        if (car == null) {
+//            return;
+//        }
+//        findChangeRandomColor(car);
+//    }
 
     private void findChangeRandomColor(final Car car) {
         final Color color = car.getColor();
@@ -298,8 +316,12 @@ public Car createAndGetCar(){
         return sb.toString();
     }
 
-    public int compareCar(final Car first, final Car second) {
-        return first.getId().compareTo(second.getId());
+    public int compareCar(Car currentCar, Car nextCar) {
+        return currentCar.getId().compareTo(nextCar.getId());
     }
 
+
 }
+
+
+

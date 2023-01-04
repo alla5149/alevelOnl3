@@ -10,6 +10,8 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static com.zhmaka.service.CarService.cars;
+
 class CarServiceTest {
     private CarService target;
     private CarArrayRepository repository;
@@ -20,7 +22,7 @@ class CarServiceTest {
     void setUp() {
         repository = Mockito.mock(CarArrayRepository.class);
         randomGenerator = Mockito.mock(RandomGenerator.class);
-        target = new CarService(repository);
+        target = new CarService(repository, cars);
     }
 
     @Test

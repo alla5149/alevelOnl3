@@ -1,0 +1,14 @@
+{
+  "Car": {
+    "Type": "CAR",
+    "Manufacturer": "OPEL",
+    "Engine": {
+      "Power": "200",
+      "Type": " "
+    },
+    "Color": "GOLD",
+    "Price": "8200",
+    "Count": "1",
+    "Passenger_count": "1"
+  }
+}
