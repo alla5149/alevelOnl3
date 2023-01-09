@@ -6,7 +6,7 @@ public class CompareAction implements Action{
     @Override
     public void execute() {
         CAR_SERVICE.create(5);
-        final Car[] all = CAR_SERVICE.getAll();
+        final Car[] all = CAR_SERVICE.getAll().toArray(new Car[0]);
         for (int i = 0; i < all.length - 1; i++) {
             Car currentCar = all[i];
             Car nextCar = all[i + 1];

@@ -1,0 +1,12 @@
+<car>
+    <type>CAR</type>
+    <manufacturer>OPEL</manufacturer>
+    <engine>
+        <power>200</power>
+        <type> </type>
+    </engine>
+    <color>GOLD</color>
+    <price>8200</price>
+    <count>1</count>
+    <passenger_count>4</passenger_count>
+</car>

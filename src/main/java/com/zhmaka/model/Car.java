@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public abstract class Car implements CountRestore{
     private final String id;
-    private String manufacturer;
+    private Manufacturer manufacturer;
     private Engine engine;
     private Color color;
     private Type type;
